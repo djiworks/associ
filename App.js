@@ -3,7 +3,7 @@ import { Text, View, Button } from 'react-native';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-import ExploreScreen from './screens/Explore';
+import Explorer from './screens/Explore';
 
 class HomeScreen2 extends React.Component {
   render() {
@@ -34,7 +34,7 @@ class HomeScreen3 extends React.Component {
 }
 
 const MainNavigator = TabNavigator({
-    Explore: {screen: ExploreScreen},
+    Explore: {screen: Explorer},
     Favorites: {screen: HomeScreen2},
     Notifs: {screen: HomeScreen3},
     Profile: {screen: HomeScreen3},

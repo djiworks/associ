@@ -8,6 +8,7 @@ export default class AssosRow extends React.Component {
       <ListItem
         title={this.props.assos.name}
         titleStyle={{fontWeight: 'bold'}}
+        onPress={this.props.onPress}
         avatar={
           <Avatar
             large

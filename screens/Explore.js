@@ -1,10 +1,12 @@
 import React from 'react';
-import { SearchBar } from 'react-native-elements';
 import { FlatList, View, ActivityIndicator } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 import AssosRow from '../components/AssosRow/AssosRow';
 import AssosSearchBar from '../components/AssosSearchBar/AssosSearchBar';
 import TagsFilterModal from '../components/TagsFilterModal/TagsFilterModal';
+
+import AssosDetail from './AssosDetail';
 
 const list = [
   {
@@ -29,7 +31,7 @@ const list = [
   },
 ];
 
-export default class ExploreScreen extends React.Component {
+class ExploreScreen extends React.Component {
   constructor(props) {
       super(props);
 
@@ -40,16 +42,22 @@ export default class ExploreScreen extends React.Component {
       };
 
       this.renderFooter = this.renderFooter.bind(this);
+      this.renderHeader = this.renderHeader.bind(this);
       this.openModal = this.openModal.bind(this);
+      this.closeModal = this.closeModal.bind(this);
+      this.renderItem = this.renderItem.bind(this);
     }
 
   openModal() {
-    this.setState({ modalVisible:true });
+    this.setState({ modalVisible: true });
+  }
+
+  closeModal() {
+    this.setState({modalVisible: false});
   }
 
   renderHeader() {
-    // Open not work
-    return <AssosSearchBar onPressFilter={this.openModal}/>
+    return <AssosSearchBar onPressFilter={this.openModal} />
   }
 
   renderFooter() {
@@ -59,20 +67,40 @@ export default class ExploreScreen extends React.Component {
   }
 
   renderItem({ item, index }) {
-    return <AssosRow assos={item} />
-  } // #303337 gray of the search bar
+    return (
+      <AssosRow
+        assos={item}
+        onPress={() => this.props.navigation.navigate('AssosDetail', {name: item.name})}
+      />
+    );
+  }
 
   render() {
     return (
-      <View style={{ marginTop: 24 }}>
+      <View style={{ flex: 1, marginTop: 24, backgroundColor: 'white' }}>
         <FlatList
           data={this.state.data}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           renderItem={this.renderItem}
         />
-        <TagsFilterModal modalVisible={this.state.modalVisible} />
+        <TagsFilterModal
+          modalVisible={this.state.modalVisible}
+          onClose={this.closeModal}
+        />
       </View>
     );
   }
 }
+
+export default StackNavigator({
+  Home: {
+    screen: ExploreScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  AssosDetail: {
+    screen: AssosDetail,
+  }
+});
