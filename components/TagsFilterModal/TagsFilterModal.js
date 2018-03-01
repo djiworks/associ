@@ -72,6 +72,7 @@ export default class TagsFilterModal extends React.Component {
           <Button
             onPress={this.props.onClose}
             title="Appliquer"
+            buttonStyle={{backgroundColor: "goldenrod"}}
           />
         </View>
       </Modal>

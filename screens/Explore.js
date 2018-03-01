@@ -32,6 +32,12 @@ const list = [
 ];
 
 class ExploreScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      header: null,
+    }
+  };
+
   constructor(props) {
       super(props);
 
@@ -94,11 +100,8 @@ class ExploreScreen extends React.Component {
 }
 
 export default StackNavigator({
-  Home: {
+  ExploreList: {
     screen: ExploreScreen,
-    navigationOptions: {
-      header: null
-    }
   },
   AssosDetail: {
     screen: AssosDetail,
