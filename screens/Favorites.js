@@ -27,16 +27,16 @@ class FavoritesScreen extends React.Component {
   };
 
   constructor(props) {
-      super(props);
+    super(props);
 
-      this.state = {
-        loading: true,
-        data: list,
-      };
+    this.state = {
+      loading: true,
+      data: list,
+    };
 
-      this.renderFooter = this.renderFooter.bind(this);
-      this.renderItem = this.renderItem.bind(this);
-    }
+    this.renderFooter = this.renderFooter.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+  }
 
   renderFooter() {
     if (!this.state.loading) return null;

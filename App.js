@@ -6,26 +6,13 @@ import { Icon } from 'react-native-elements';
 import Explorer from './screens/Explore';
 import Favorites from './screens/Favorites';
 import Notifs from './screens/Notifs';
-
-class HomeScreen3 extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen3</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('Details')}
-        />
-      </View>
-    );
-  }
-}
+import Parameters from './screens/Parameters';
 
 const MainNavigator = TabNavigator({
     Explorer: {screen: Explorer},
     'Mes Favoris': {screen: Favorites},
     Alertes: {screen: Notifs},
-    Paramètres: {screen: HomeScreen3},
+    Paramètres: {screen: Parameters},
   }, {
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {

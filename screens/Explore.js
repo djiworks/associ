@@ -39,20 +39,20 @@ class ExploreScreen extends React.Component {
   };
 
   constructor(props) {
-      super(props);
+    super(props);
 
-      this.state = {
-        loading: true,
-        modalVisible: false,
-        data: list,
-      };
+    this.state = {
+      loading: true,
+      modalVisible: false,
+      data: list,
+    };
 
-      this.renderFooter = this.renderFooter.bind(this);
-      this.renderHeader = this.renderHeader.bind(this);
-      this.openModal = this.openModal.bind(this);
-      this.closeModal = this.closeModal.bind(this);
-      this.renderItem = this.renderItem.bind(this);
-    }
+    this.renderFooter = this.renderFooter.bind(this);
+    this.renderHeader = this.renderHeader.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.renderItem = this.renderItem.bind(this);
+  }
 
   openModal() {
     this.setState({ modalVisible: true });
