@@ -4,20 +4,7 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
 import Explorer from './screens/Explore';
-
-class HomeScreen2 extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen2</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => this.props.navigation.navigate('Details')}
-        />
-      </View>
-    );
-  }
-}
+import Favorites from './screens/Favorites';
 
 class HomeScreen3 extends React.Component {
   render() {
@@ -34,27 +21,27 @@ class HomeScreen3 extends React.Component {
 }
 
 const MainNavigator = TabNavigator({
-    Explore: {screen: Explorer},
-    Favorites: {screen: HomeScreen2},
-    Notifs: {screen: HomeScreen3},
-    Profile: {screen: HomeScreen3},
+    Explorer: {screen: Explorer},
+    'Mes Favoris': {screen: Favorites},
+    Alertes: {screen: HomeScreen3},
+    Paramètres: {screen: HomeScreen3},
   }, {
     navigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, tintColor }) => {
         const { routeName } = navigation.state;
         let icon = '';
         switch (routeName) {
-          case 'Explore':
+          case 'Explorer':
             icon = 'compass';
             break;
-          case 'Favorites':
+          case 'Mes Favoris':
             icon = 'heart';
             break;
-          case 'Notifs':
+          case 'Alertes':
             icon = 'bell';
             break;
-          case 'Profile':
-            icon = 'user';
+          case 'Paramètres':
+            icon = 'cog';
             break;
           default:
         }
