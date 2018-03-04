@@ -5,6 +5,7 @@ import { Icon } from 'react-native-elements';
 
 import Explorer from './screens/Explore';
 import Favorites from './screens/Favorites';
+import Notifs from './screens/Notifs';
 
 class HomeScreen3 extends React.Component {
   render() {
@@ -23,7 +24,7 @@ class HomeScreen3 extends React.Component {
 const MainNavigator = TabNavigator({
     Explorer: {screen: Explorer},
     'Mes Favoris': {screen: Favorites},
-    Alertes: {screen: HomeScreen3},
+    Alertes: {screen: Notifs},
     Paramètres: {screen: HomeScreen3},
   }, {
     navigationOptions: ({ navigation }) => ({
