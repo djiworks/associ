@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import { FlatList, View, ActivityIndicator, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation';
@@ -19,8 +20,11 @@ class ExploreScreen extends React.Component {
     super(props);
 
     this.state = {
-      isLoading: true,
+      isLoading: false,
+      isRefreshing: false,
       modalVisible: false,
+      limit: 10,
+      start: 0,
       data: [],
     };
 
@@ -29,20 +33,60 @@ class ExploreScreen extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.renderItem = this.renderItem.bind(this);
+    this.handleRefresh = this.handleRefresh.bind(this);
+    this.handleLoadMore = _.throttle(this.handleLoadMore,5000).bind(this);
   }
 
-  componentDidMount(){
-    return fetch(`${API_URL}/assos`)
+  makeRemoteRequest(isRefreshing = false) {
+    return fetch(`${API_URL}/assos?_start=${this.state.start}&_limit=${this.state.limit}`)
       .then((response) => response.json())
       .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          data: responseJson,
-        });
+        let data;
+        let timeout;
+        if (isRefreshing) {
+          data = responseJson
+          timeout = 1500;
+        } else {
+          data = [...this.state.data, ...responseJson]
+          timeout = 0;
+        }
+        setTimeout(() => {
+          this.setState({
+            isLoading: false,
+            isRefreshing: false,
+            data,
+          });
+        }, 1500);
       })
       .catch((error) =>{
         console.error(error);
       });
+  }
+
+  componentDidMount() {
+    this.setState({isLoading: true}, () => {
+      this.makeRemoteRequest();
+    });
+  }
+
+  handleRefresh() {
+    this.setState({
+      isRefreshing: true,
+      start: 0,
+      limit: 10,
+    }, () => {
+      this.makeRemoteRequest(true);
+    });
+  }
+
+  handleLoadMore() {
+    const newStart = (this.state.start + this.state.limit);
+    this.setState({
+      isLoading: true,
+      start: newStart,
+    }, () => {
+      this.makeRemoteRequest();
+    });
   }
 
   openModal() {
@@ -87,6 +131,10 @@ class ExploreScreen extends React.Component {
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           renderItem={this.renderItem}
+          refreshing={this.state.isLoading}
+          onRefresh={this.handleRefresh}
+          onEndReached={this.handleLoadMore}
+          onEndReachedThreshold={0}
         />
         <TagsFilterModal
           modalVisible={this.state.modalVisible}

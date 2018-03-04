@@ -12,7 +12,7 @@ export default class AssosRow extends React.Component {
         avatar={
           <Avatar
             large
-            source={{uri: this.props.assos.img}}
+            source={{uri: this.props.assos.avatar}}
           />
         }
         subtitle={
