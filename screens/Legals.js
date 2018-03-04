@@ -2,10 +2,8 @@ import React from 'react';
 import { ScrollView } from 'react-native';
 import { Text } from 'react-native-elements';
 
-import { MAIL, APP_NAME } from '../config/settings';
-
 export default class LegalScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
     return {
       headerTitle: 'Conditions d\'utilisation',
       headerBackTitle: null,
@@ -67,12 +65,12 @@ export default class LegalScreen extends React.Component {
           L'Application se réserve le droit d'être en maintenance sans avertissement préabable.
         </Text>
         <Text h4>Limitations d'usage</Text>
+        <Text>
           L’accès et l’utilisation de l'Application se font aux risques et périls de l'Utilisateur.
           L’Application est fournie « tel quel » sans garantie quelle qu’elle soit.
           En raison de l'utilisation du réseau Internet, l'Application n'est en aucun responsable des aléas de ce réseau.
           l'Application décline toute responsabilité en cas de mauvaise utilisation du terminal et/ou d'incident lié à l'utilisation du terminal lors de son utilisation.
-        <Text></Text>
-        <Text></Text>
+        </Text>
         <Text h4>Evolution des présentes conditions</Text>
         <Text>
           Les CGU applicables sont celles en vigueur à la date de la connexion et de l’utilisation de l’Application par l’Utilisateur.

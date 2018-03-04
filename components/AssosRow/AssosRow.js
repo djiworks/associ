@@ -12,7 +12,7 @@ export default class AssosRow extends React.Component {
         avatar={
           <Avatar
             large
-            source={{uri: "http://via.placeholder.com/100x100"}}
+            source={{uri: this.props.assos.img}}
           />
         }
         subtitle={
@@ -23,7 +23,7 @@ export default class AssosRow extends React.Component {
                 readonly
                 startingValue={this.props.assos.rating}
               />
-              <Text style={{marginLeft: 5, fontSize: 10, color: 'gray'}}>(10 reviews)</Text>
+              <Text style={{marginLeft: 5, fontSize: 10, color: 'gray'}}>({this.props.assos.nratings} reviews)</Text>
             </View>
             <View style={{paddingTop: 5, flexDirection: 'row'}}>
               {

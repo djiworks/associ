@@ -1,0 +1,7 @@
+{
+  "assos": [
+    { "id": 1, "name": "Association 1", "rating": 3, "tags": ["sport"], "nratings": 5, "img": "http://via.placeholder.com/100x100" },
+    { "id": 2, "name": "Association 2", "rating": 2, "tags": ["sport", "auto"], "nratings": 100, "img": "http://via.placeholder.com/100x100" },
+    { "id": 3, "name": "Association 3", "rating": 5, "tags": ["santé"], "nratings": 1, "img": "http://via.placeholder.com/100x100"}
+  ]
+}

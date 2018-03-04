@@ -1,38 +1,15 @@
 import React from 'react';
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import { FlatList, View, ActivityIndicator, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-
+import { API_URL } from '../config/settings';
 import AssosRow from '../components/AssosRow/AssosRow';
 import AssosSearchBar from '../components/AssosSearchBar/AssosSearchBar';
 import TagsFilterModal from '../components/TagsFilterModal/TagsFilterModal';
 
 import AssosDetail from './AssosDetail';
 
-const list = [
-  {
-    name: 'Amy Farha',
-    rating: 3,
-    tags: ['sport'],
-  },
-  {
-    name: 'Chris Jackson',
-    rating: 5,
-    tags: ['sport', 'auto'],
-  },
-    {
-    name: 'Chris Jackson',
-    rating: 1,
-    tags: ['santé'],
-  },
-    {
-    name: 'Chris Jackson',
-    rating: 0,
-    tags: ['politique', 'religion', 'social', 'test'],
-  },
-];
-
 class ExploreScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
     return {
       header: null,
     }
@@ -42,9 +19,9 @@ class ExploreScreen extends React.Component {
     super(props);
 
     this.state = {
-      loading: true,
+      isLoading: true,
       modalVisible: false,
-      data: list,
+      data: [],
     };
 
     this.renderFooter = this.renderFooter.bind(this);
@@ -52,6 +29,20 @@ class ExploreScreen extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.renderItem = this.renderItem.bind(this);
+  }
+
+  componentDidMount(){
+    return fetch(`${API_URL}/assos`)
+      .then((response) => response.json())
+      .then((responseJson) => {
+        this.setState({
+          isLoading: false,
+          data: responseJson,
+        });
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
   }
 
   openModal() {
@@ -67,12 +58,17 @@ class ExploreScreen extends React.Component {
   }
 
   renderFooter() {
-    if (!this.state.loading) return null;
+    if (!this.state.isLoading) return null;
 
-    return <ActivityIndicator animating size="large" />;
+    return (
+      <View style={{flex: 1, paddingTop: 15, alignItems: 'center'}}>
+        <ActivityIndicator animating size="large" />
+        <Text> Chargement...</Text>
+      </View>
+    );
   }
 
-  renderItem({ item, index }) {
+  renderItem({ item }) {
     return (
       <AssosRow
         assos={item}
@@ -82,10 +78,12 @@ class ExploreScreen extends React.Component {
   }
 
   render() {
+
     return (
       <View style={{ flex: 1, marginTop: 24, backgroundColor: 'white' }}>
         <FlatList
           data={this.state.data}
+          keyExtractor={item => item.id}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           renderItem={this.renderItem}
