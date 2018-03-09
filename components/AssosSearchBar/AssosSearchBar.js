@@ -11,6 +11,7 @@ export default class AssosSearchBar extends React.Component {
           clearIcon
           placeholder='Recherchez par nom'
           containerStyle={{flex: 1}}
+          onChangeText={this.props.onSearch}
         />
         <Icon
           type="font-awesome"

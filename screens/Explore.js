@@ -26,6 +26,8 @@ class ExploreScreen extends React.Component {
       limit: 10,
       start: 0,
       data: [],
+      filter: [],
+      search: '',
     };
 
     this.renderFooter = this.renderFooter.bind(this);
@@ -35,9 +37,13 @@ class ExploreScreen extends React.Component {
     this.renderItem = this.renderItem.bind(this);
     this.handleRefresh = this.handleRefresh.bind(this);
     this.handleLoadMore = _.throttle(this.handleLoadMore,5000).bind(this);
+    this.handleFilter = this.handleFilter.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    
   }
 
   makeRemoteRequest(isRefreshing = false) {
+    // TODO plug filter state to the url and search text
     return fetch(`${API_URL}/assos?_start=${this.state.start}&_limit=${this.state.limit}`)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -89,6 +95,14 @@ class ExploreScreen extends React.Component {
     });
   }
 
+  handleFilter(checked) {
+    this.setState({ filter: Object.keys(checked) });
+  }
+
+  handleSearch(text) {
+    this.setState({ search: text });
+  }
+
   openModal() {
     this.setState({ modalVisible: true });
   }
@@ -98,7 +112,7 @@ class ExploreScreen extends React.Component {
   }
 
   renderHeader() {
-    return <AssosSearchBar onPressFilter={this.openModal} />
+    return <AssosSearchBar onPressFilter={this.openModal} onSearch={this.handleSearch}/>
   }
 
   renderFooter() {
@@ -139,6 +153,7 @@ class ExploreScreen extends React.Component {
         <TagsFilterModal
           modalVisible={this.state.modalVisible}
           onClose={this.closeModal}
+          onFilter={this.handleFilter}
         />
       </View>
     );

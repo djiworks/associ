@@ -9,7 +9,7 @@
     { "id": 7, "name": "Association 7", "rating": 3, "tags": ["sport"], "nratings": 5, "avatar": "http://via.placeholder.com/100x100" },
     { "id": 8, "name": "Association 8", "rating": 2, "tags": ["sport", "auto"], "nratings": 100, "avatar": "http://via.placeholder.com/100x100" },
     { "id": 9, "name": "Association 9", "rating": 5, "tags": ["santé"], "nratings": 1, "avatar": "http://via.placeholder.com/100x100"},
-    { "id": 10, "name": "Association 10", "rating": 5, "tags": ["sociale"], "nratings": 1, "avatar": "http://via.placeholder.com/100x100"},
+    { "id": 10, "name": "Association 10", "rating": 5, "tags": ["sociale", "sport"], "nratings": 1, "avatar": "http://via.placeholder.com/100x100"},
     { "id": 11, "name": "Association 11", "rating": 5, "tags": ["sociale"], "nratings": 1, "avatar": "http://via.placeholder.com/100x100"},
     { "id": 12, "name": "Association 12", "rating": 5, "tags": ["sociale"], "nratings": 1, "avatar": "http://via.placeholder.com/100x100"},
     { "id": 13, "name": "Association 13", "rating": 3, "tags": ["sport"], "nratings": 5, "avatar": "http://via.placeholder.com/100x100" },
@@ -24,5 +24,11 @@
     { "id": 22, "name": "Association 22", "rating": 5, "tags": ["sociale"], "nratings": 1, "avatar": "http://via.placeholder.com/100x100"},
     { "id": 23, "name": "Association 23", "rating": 5, "tags": ["sociale"], "nratings": 1, "avatar": "http://via.placeholder.com/100x100"},
     { "id": 24, "name": "Association 24", "rating": 5, "tags": ["sociale"], "nratings": 1, "avatar": "http://via.placeholder.com/100x100"}
+  ],
+  "tags": [
+    { "name": "sociale", "icon": "handshake-o" },
+    { "name": "santé", "icon": "stethoscope" },
+    { "name": "auto", "icon": "car" },
+    { "name": "sport", "icon": "futbol-o" }
   ]
 }
