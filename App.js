@@ -1,56 +1,24 @@
-import React from 'react';
-import { Text, View, Button } from 'react-native';
-import { TabNavigator, TabBarBottom } from 'react-navigation';
-import { Icon } from 'react-native-elements';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import firebase from 'firebase';
 
-import Explorer from './screens/Explore';
-import Favorites from './screens/Favorites';
-import Notifs from './screens/Notifs';
-import Parameters from './screens/Parameters';
+import reducers from './src/reducers';
+import Router from './src/Router';
+import FirebaseConfig from './config/firebase';
 
-const MainNavigator = TabNavigator({
-    Explorer: {screen: Explorer},
-    'Mes Favoris': {screen: Favorites},
-    Alertes: {screen: Notifs},
-    Paramètres: {screen: Parameters},
-  }, {
-    navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, tintColor }) => {
-        const { routeName } = navigation.state;
-        let icon = '';
-        switch (routeName) {
-          case 'Explorer':
-            icon = 'compass';
-            break;
-          case 'Mes Favoris':
-            icon = 'heart';
-            break;
-          case 'Alertes':
-            icon = 'bell';
-            break;
-          case 'Paramètres':
-            icon = 'cog';
-            break;
-          default:
-        }
-        return <Icon type="font-awesome" name={icon} size={25} color={tintColor} />;
-      },
-    }),
-    tabBarOptions: {
-      activeTintColor: 'goldenrod',
-      inactiveTintColor: 'gray',
-    },
-    tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
-    animationEnabled: false,
-    swipeEnabled: false,
-  });
+export default class App extends Component {
+  componentWillMount() {
+    firebase.initializeApp(FirebaseConfig);
+  }
 
-export default class App extends React.Component {
   render() {
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
-      <MainNavigator />
+      <Provider store={store}>
+        <Router />
+      </Provider>
     );
   }
 }
-

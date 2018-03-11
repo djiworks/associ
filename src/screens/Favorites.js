@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+// import { StackNavigator } from 'react-navigation';
 
 import AssosRow from '../components/AssosRow/AssosRow';
 
@@ -23,7 +23,7 @@ class FavoritesScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Mes Favoris',
-    }
+    };
   };
 
   constructor(props) {
@@ -48,7 +48,9 @@ class FavoritesScreen extends React.Component {
     return (
       <AssosRow
         assos={item}
-        onPress={() => this.props.navigation.navigate('AssosDetail', {name: item.name})}
+        onPress={() =>
+          this.props.navigation.navigate('AssosDetail', { name: item.name })
+        }
       />
     );
   }
@@ -66,11 +68,13 @@ class FavoritesScreen extends React.Component {
   }
 }
 
-export default StackNavigator({
-  FavoritesList: {
-    screen: FavoritesScreen,
-  },
-  AssosDetail: {
-    screen: AssosDetail,
-  }
-});
+// export default StackNavigator({
+//   FavoritesList: {
+//     screen: FavoritesScreen,
+//   },
+//   AssosDetail: {
+//     screen: AssosDetail,
+//   }
+// });
+
+export default FavoritesScreen;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
 import { Text, ListItem } from 'react-native-elements';
-import { StackNavigator } from 'react-navigation';
+// import { StackNavigator } from 'react-navigation';
 
 import AssosRow from '../components/AssosRow/AssosRow';
 
@@ -11,25 +11,25 @@ const list = [
   {
     title: 'Appointments',
     icon: 'av-timer',
-    text: 'AG test ici la suite okok'
+    text: 'AG test ici la suite okok',
   },
   {
     title: 'Trips',
     icon: 'flight-takeoff',
-    text: 'AG test ici la suite okok'
+    text: 'AG test ici la suite okok',
   },
   {
     title: 'Appointments',
     icon: 'av-timer',
-    text: 'AG test ici la suite okok'
+    text: 'AG test ici la suite okok',
   },
-]
+];
 
 class NotifsScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Alertes',
-    }
+    };
   };
 
   constructor(props) {
@@ -55,13 +55,15 @@ class NotifsScreen extends React.Component {
       <ListItem
         title={
           <View>
-            <Text style={{fontWeight: 'bold'}}>Nom Association :</Text>
+            <Text style={{ fontWeight: 'bold' }}>Nom Association :</Text>
             <Text>{item.text}</Text>
           </View>
         }
         subtitle="Il y a 5 minutes"
-        leftIcon={{name: item.icon}}
-        onPress={() => this.props.navigation.navigate('AssosDetail', {name: item.name})}
+        leftIcon={{ name: item.icon }}
+        onPress={() =>
+          this.props.navigation.navigate('AssosDetail', { name: item.name })
+        }
       />
     );
   }
@@ -79,11 +81,13 @@ class NotifsScreen extends React.Component {
   }
 }
 
-export default StackNavigator({
-  NotifsList: {
-    screen: NotifsScreen,
-  },
-  AssosDetail: {
-    screen: AssosDetail,
-  }
-});
+export default NotifsScreen;
+
+// export default StackNavigator({
+//   NotifsList: {
+//     screen: NotifsScreen,
+//   },
+//   AssosDetail: {
+//     screen: AssosDetail,
+//   }
+// });
