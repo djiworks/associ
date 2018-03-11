@@ -20,8 +20,6 @@ import Explorer from './screens/Explore';
 import Favorites from './screens/Favorites';
 import Notifs from './screens/Notifs';
 import Parameters from './screens/Parameters';
-
-import DrawerContent from './components/DrawerContent';
 import CustomNavBar from './components/CustomNavBar';
 
 const RouterComponent = () => {

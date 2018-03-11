@@ -184,7 +184,6 @@ class ExploreScreen extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log('state', state);
   const { isLoading, associations } = state.explorer;
   return { isLoading, associations };
 };

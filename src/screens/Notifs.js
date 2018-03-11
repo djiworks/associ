@@ -82,12 +82,3 @@ class NotifsScreen extends React.Component {
 }
 
 export default NotifsScreen;
-
-// export default StackNavigator({
-//   NotifsList: {
-//     screen: NotifsScreen,
-//   },
-//   AssosDetail: {
-//     screen: AssosDetail,
-//   }
-// });

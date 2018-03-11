@@ -47,12 +47,3 @@ class ParametersScreen extends React.Component {
 }
 
 export default ParametersScreen;
-
-// export default StackNavigator({
-//   ParamsList: {
-//     screen: ParametersScreen,
-//   },
-//   Legal: {
-//     screen: LegalScreen,
-//   },
-// });
