@@ -1,36 +1,33 @@
-import React from 'react';
-import { ListItem , Text, Avatar, Rating } from 'react-native-elements';
-import { View } from 'react-native';
+import React, { Component } from 'react';
+import { ListItem } from 'react-native-elements';
+import { View, Text } from 'react-native';
 
-export default class AssosRow extends React.Component {
+class AssosRow extends Component {
   render() {
+    const { name, onPress, tags } = this.props.assos;
     return (
       <ListItem
-        title={this.props.assos.name}
-        titleStyle={{fontWeight: 'bold'}}
-        onPress={this.props.onPress}
-        avatar={
-          <Avatar
-            large
-            source={{uri: this.props.assos.avatar}}
-          />
-        }
+        onPress={() => {
+          this.props.navigation.navigate('AssosDetail');
+        }}
+        title={name}
+        titleStyle={{ fontWeight: 'bold' }}
         subtitle={
-          <View style={{paddingLeft: 10}}>
-            <View style={{paddingTop: 5, flexDirection: 'row', alignItems: 'center'}} >
-              <Rating
-                imageSize={15}
-                readonly
-                startingValue={this.props.assos.rating}
-              />
-              <Text style={{marginLeft: 5, fontSize: 10, color: 'gray'}}>({this.props.assos.nratings} reviews)</Text>
-            </View>
-            <View style={{paddingTop: 5, flexDirection: 'row'}}>
-              {
-                this.props.assos.tags.map((tag) => (
-                  <Text style={{fontSize: 10, color: 'gray', marginRight: 2, fontStyle: 'italic'}}>#{tag}</Text>
-                ))
-              }
+          <View style={{ paddingLeft: 10 }}>
+            <View style={{ paddingTop: 5, flexDirection: 'row' }}>
+              <Text
+                style={{
+                  fontSize: 10,
+                  color: 'gray',
+                  marginRight: 2,
+                  fontStyle: 'italic',
+                }}
+              >
+                #ok
+              </Text>
+              {/* {tags.map(tag => {
+                return <Text>#{tag}</Text>;
+              })} */}
             </View>
           </View>
         }
@@ -38,3 +35,5 @@ export default class AssosRow extends React.Component {
     );
   }
 }
+
+export default AssosRow;
