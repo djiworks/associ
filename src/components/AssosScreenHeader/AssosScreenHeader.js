@@ -5,14 +5,14 @@ import { View } from 'react-native';
 export default class AssosScreenHeader extends React.Component {
   render() {
     return (
-      <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
         <Icon
           type="font-awesome"
           name="chevron-left"
           size={25}
           color="goldenrod"
           underlayColor="transparent"
-          containerStyle={{flex: 1, alignItems:'flex-start'}}
+          containerStyle={{ flex: 1, alignItems: 'flex-start' }}
           onPress={this.props.onBackPress}
         />
         <Icon
