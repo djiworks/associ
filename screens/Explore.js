@@ -1,15 +1,12 @@
 import _ from 'lodash';
 import React from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
-// import { StackNavigator } from 'react-navigation';
-import AssosRow from '../components/AssosRow/AssosRow';
-import AssosSearchBar from '../components/AssosSearchBar/AssosSearchBar';
-import TagsFilterModal from '../components/TagsFilterModal/TagsFilterModal';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import AssosDetail from './AssosDetail';
-// import { log } from 'util';
+import AssosRow from '../components/AssosRow/AssosRow';
+import AssosSearchBar from '../components/AssosSearchBar/AssosSearchBar';
+import TagsFilterModal from '../components/TagsFilterModal/TagsFilterModal';
 
 class ExploreScreen extends React.Component {
   static navigationOptions = () => {
@@ -124,12 +121,3 @@ const associationsQuery = gql`
 export default graphql(associationsQuery, {
   props: ({ data }) => ({ ...data }),
 })(ExploreScreen);
-
-// export default StackNavigator({
-//   ExploreList: {
-//     screen: ExploreScreen,
-//   },
-//   AssosDetail: {
-//     screen: AssosDetail,
-//   },
-// });
