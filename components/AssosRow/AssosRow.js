@@ -6,6 +6,7 @@ export default class AssosRow extends React.Component {
   render() {
     return (
       <ListItem
+        key={this.props.id}
         title={this.props.assos.name}
         titleStyle={{fontWeight: 'bold'}}
         onPress={this.props.onPress}

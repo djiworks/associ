@@ -1,23 +1,10 @@
 import React from 'react';
-import { FlatList, View, ActivityIndicator } from 'react-native';
+import { FlatList, View, ActivityIndicator, AsyncStorage } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import AssosRow from '../components/AssosRow/AssosRow';
 
 import AssosDetail from './AssosDetail';
-
-const list = [
-  {
-    name: 'Amy Farha',
-    rating: 3,
-    tags: ['sport'],
-  },
-  {
-    name: 'Chris Jackson',
-    rating: 5,
-    tags: ['sport', 'auto'],
-  },
-];
 
 class FavoritesScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -31,11 +18,31 @@ class FavoritesScreen extends React.Component {
 
     this.state = {
       loading: true,
-      data: list,
+      data: [],
     };
 
     this.renderFooter = this.renderFooter.bind(this);
     this.renderItem = this.renderItem.bind(this);
+  }
+
+  componentDidMount() {
+    this.readFavorites()
+  }
+
+  readFavorites = async () => {
+    this.setState({ loading: true });
+    try {
+      const favKeys = await AsyncStorage.getAllKeys();
+      console.log('>>>>>>', favKeys);
+      /*
+      >>>>>> Array [
+      23:59:24:   "@favorites:2",
+      23:59:24:   "@favorites:3",
+      23:59:24: ]
+      */
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   renderFooter() {

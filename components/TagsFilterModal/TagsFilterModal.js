@@ -70,7 +70,7 @@ export default class TagsFilterModal extends React.Component {
             {
               this.state.data.map((item) => (
                 <ListItem
-                  keyExtractor={item => item.name}
+                  key={item => item.name}
                   title={item.name}
                   leftIcon={{name: item.icon, type:'font-awesome', color: 'goldenrod'}}
                   rightIcon={{name: 'check', type:'font-awesome', size:15, color: this.state.checked[item.name] }}

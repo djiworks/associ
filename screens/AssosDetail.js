@@ -12,8 +12,8 @@ export default class AssosDetail extends React.Component {
       header: null,
     }
   };
-  constructor () {
-    super()
+  constructor (props) {
+    super(props);
     this.state = {
       selectedIndex: 0
     }
@@ -25,6 +25,9 @@ export default class AssosDetail extends React.Component {
   }
 
   render() {
+    const { params } = this.props.navigation.state;
+    const item = params ? params.assos : null;
+
     const buttons = ['Détails', 'Contacts', 'Historique']
     const { selectedIndex } = this.state
     let content;
@@ -42,22 +45,23 @@ export default class AssosDetail extends React.Component {
     return (
       <View style={{backgroundColor: 'white', flex: 1}}>
         <Image
-          source={{uri: "http://via.placeholder.com/400x250"}}
+          source={{uri: item.banner}}
           style={{width: 400, height: 250}}
         />
         <View style={{padding: 10, marginTop: -240}}>
           <AssosScreenHeader
+            assos={item}
             onBackPress={() => this.props.navigation.goBack()}
           />
         </View>
         <View style={{marginTop: 150, padding: 10, flexDirection: 'row'}}>
           <View style={{flex: 1}}>
-            <Text h4 style={{color: 'goldenrod'}}>Assos Name</Text>
+            <Text h4 style={{color: 'goldenrod'}}>{item.name}</Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
               <Rating
                 imageSize={22}
                 readonly
-                //startingValue={this.props.assos.rating}
+                startingValue={item.rating}
               />
               <Button
                 title="(Votez)"

@@ -130,7 +130,7 @@ class ExploreScreen extends React.Component {
     return (
       <AssosRow
         assos={item}
-        onPress={() => this.props.navigation.navigate('AssosDetail', {name: item.name})}
+        onPress={() => this.props.navigation.navigate('AssosDetail', { assos: item })}
       />
     );
   }
@@ -141,7 +141,6 @@ class ExploreScreen extends React.Component {
       <View style={{ flex: 1, marginTop: 24, backgroundColor: 'white' }}>
         <FlatList
           data={this.state.data}
-          keyExtractor={item => item.id}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
           renderItem={this.renderItem}
