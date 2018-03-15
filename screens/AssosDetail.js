@@ -20,7 +20,6 @@ class AssosDetail extends React.Component {
       header: null,
     };
   };
-
   constructor() {
     super();
     this.state = {
@@ -59,6 +58,7 @@ class AssosDetail extends React.Component {
         />
         <View style={{ padding: 10, marginTop: -240 }}>
           <AssosScreenHeader
+            assos={item}
             onBackPress={() => this.props.navigation.goBack()}
           />
         </View>
@@ -71,7 +71,7 @@ class AssosDetail extends React.Component {
               <Rating
                 imageSize={22}
                 readonly
-                //startingValue={this.props.assos.rating}
+                startingValue={item.rating}
               />
             </View>
           </View>

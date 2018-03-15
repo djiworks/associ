@@ -78,7 +78,6 @@ class ExploreScreen extends React.Component {
       </View>
     );
   }
-
   renderItem = ({ item }) => {
     return <AssosRow assos={item} {...this.props} />;
   };

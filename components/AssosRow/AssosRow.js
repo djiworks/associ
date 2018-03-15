@@ -6,11 +6,16 @@ class AssosRow extends Component {
   renderSubtitle() {
     return (
       <View style={{ paddingLeft: 10 }}>
+        <View style={{paddingTop: 5, flexDirection: 'row', alignItems: 'center'}} >
+              <Rating
+                imageSize={15}
+                readonly
+                startingValue={5}
+              />
+              <Text style={{marginLeft: 5, fontSize: 10, color: 'gray'}}>({10} reviews)</Text>
+         </View>
         <View style={{ paddingTop: 5, flexDirection: 'row' }}>
           <Text style={styles.tagContainer}>#ok</Text>
-          {/* {tags.map(tag => {
-                return <Text>#{tag}</Text>;
-              })} */}
         </View>
       </View>
     );
@@ -25,6 +30,12 @@ class AssosRow extends Component {
         title={name}
         titleStyle={{ fontWeight: 'bold' }}
         subtitle={this.renderSubtitle()}
+        avatar={
+          <Avatar
+            large
+            source={{uri: this.props.assos.avatar}}
+          />
+        }
       />
     );
   }
