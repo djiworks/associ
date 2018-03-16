@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking } from 'react-native';
+import { Linking, Alert } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import { StackNavigator } from 'react-navigation';
 
@@ -21,12 +21,12 @@ class ParametersScreen extends React.Component {
     return (
       <List>
         <ListItem
-          title="Contactez-nous"
+          title="Nous contacter"
           leftIcon={{name: 'question-circle', type: 'font-awesome'}}
           onPress={() => Linking.openURL(`mailto:${MAIL}?subject=[${APP_NAME}] Contact`)}
         />
         <ListItem
-          title="Signalez un problème"
+          title="Signaler un problème"
           leftIcon={{name: 'warning', type: 'font-awesome'}}
           onPress={() => Linking.openURL(`mailto:${MAIL}?subject=[${APP_NAME}] Signalement d'un problème`)}
         />
@@ -34,6 +34,11 @@ class ParametersScreen extends React.Component {
           title="Conditions d'utilisation"
           leftIcon={{name: 'legal', type: 'font-awesome'}}
           onPress={() => this.props.navigation.navigate('Legal')}
+        />
+        <ListItem
+          title="A propos"
+          leftIcon={{name: 'info', type: 'font-awesome'}}
+          onPress={() => Alert.alert('A propos', 'v0.1\n Copyright Doney (Mars 2018)')}
         />
       </List>
     );
