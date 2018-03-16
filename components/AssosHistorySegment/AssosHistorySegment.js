@@ -1,45 +1,62 @@
 import React from 'react';
 import { Text, ListItem } from 'react-native-elements';
 import { View, FlatList } from 'react-native';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-const list = [
-  {
-    title: 'Appointments',
-    icon: 'av-timer'
-  },
-  {
-    title: 'Trips',
-    icon: 'flight-takeoff'
-  },
-  {
-    title: 'Appointments',
-    icon: 'av-timer'
-  },
-]
+class AssosHistorySegment extends React.Component {
+  renderEmpty() {
+    return <Text>Pas d'alerte...</Text>
+  }
 
-export default class AssosHistorySegment extends React.Component {
-  renderItem({ item, index }) {
+  renderItem({ item }) {
+    const dateObj = new Date(item.date).toLocaleString('fr-FR');
     return (
       <ListItem
-        title={
-          <View>
-            <Text>13/02/2016 :</Text>
-            <Text>Assemblé Générale</Text>
-          </View>
-        }
+        title={`${dateObj} : ${item.title}`}
+        subtitle={item.msg}
         hideChevron
         leftIcon={{name: item.icon}}
       />
     );
   }
   render() {
+    const { allNotifs, loading } = this.props;
     return (
       <View>
         <FlatList
-          data={list}
+          data={allNotifs}
+          keyExtractor={item => item.id}
           renderItem={this.renderItem}
+          ListEmptyComponent={this.renderEmpty}
+          refreshing={loading}
         />
       </View>
     );
   }
 }
+
+const notifQuery = gql`
+  query allNotifs($id: ID!) {
+    allNotifs(filter: {
+      association: {
+        id: $id
+      }
+    }) {
+      id
+      title
+      msg
+      icon
+      date
+    }
+  }
+`;
+
+export default graphql(notifQuery, {
+  props: ({ data }) => ({ ...data }),
+  options: (props) => ({
+    variables: {
+      id: props.assos.id,
+    },
+  }),
+})(AssosHistorySegment);

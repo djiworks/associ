@@ -55,10 +55,10 @@ class AssosDetail extends React.Component {
           content = <AssosDetailsSegment assos={Association} />;
           break;
         case 1:
-          content = <AssosContactsSegment />;
+          content = <AssosContactsSegment assos={Association} />;
           break;
         case 2:
-          content = <AssosHistorySegment />;
+          content = <AssosHistorySegment assos={item} />;
           break;
       }
       banner = (
@@ -119,6 +119,8 @@ const assoQuery = gql`
       id
       name
       banner
+      address
+      phone
       tags {
         name
       }
