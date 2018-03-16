@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 import { Text } from 'react-native-elements';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -7,6 +8,8 @@ import gql from 'graphql-tag';
 import AssosRow from '../components/AssosRow/AssosRow';
 import AssosSearchBar from '../components/AssosSearchBar/AssosSearchBar';
 import TagsFilterModal from '../components/TagsFilterModal/TagsFilterModal';
+
+import AssosDetail from './AssosDetail';
 
 class ExploreScreen extends React.Component {
   static navigationOptions = () => {
@@ -88,7 +91,7 @@ class ExploreScreen extends React.Component {
           keyExtractor={item => item.id}
           ListHeaderComponent={this.renderHeader}
           ListFooterComponent={this.renderFooter}
-          ListEmptyComponent={this.renderEmpty}
+          //ListEmptyComponent={this.renderEmpty}
           renderItem={this.renderItem}
           refreshing={loading}
         />
@@ -110,7 +113,6 @@ const associationsQuery = gql`
       avatar
       tags {
         name
-        icon
       }
       _ratingsMeta {
         count
@@ -119,6 +121,13 @@ const associationsQuery = gql`
   }
 `;
 
-export default graphql(associationsQuery, {
-  props: ({ data }) => ({ ...data }),
-})(ExploreScreen);
+export default StackNavigator({
+  ExploreList: {
+    screen: graphql(associationsQuery, {
+      props: ({ data }) => ({ ...data }),
+    })(ExploreScreen),
+  },
+  AssosDetail: {
+    screen: AssosDetail,
+  },
+});

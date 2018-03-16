@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, ActivityIndicator } from 'react-native';
 import {
   Text,
   Rating,
@@ -39,25 +39,39 @@ class AssosDetail extends React.Component {
 
     const { Association, loading } = this.props;
     const { selectedIndex } = this.state;
+    let banner;
     let content;
-    switch (selectedIndex) {
-      case 0:
-        content = <AssosDetailsSegment assos= {Association}/>;
-        break;
-      case 1:
-        content = <AssosContactsSegment />;
-        break;
-      case 2:
-        content = <AssosHistorySegment />;
-        break;
-    }
-    // let content = <Text>taaaa</Text>;
-    return (
-      <View style={{ backgroundColor: 'white', flex: 1 }}>
+    if (loading) {
+      content = <ActivityIndicator animating size="large" />;
+      banner = ( 
+        <View style={{ width: 400, height: 250, justifyContent: 'center'}}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+        
+    } else {
+      switch (selectedIndex) {
+        case 0:
+          content = <AssosDetailsSegment assos={Association} />;
+          break;
+        case 1:
+          content = <AssosContactsSegment />;
+          break;
+        case 2:
+          content = <AssosHistorySegment />;
+          break;
+      }
+      banner = (
         <Image
           source={{ uri: Association.banner }}
           style={{ width: 400, height: 250 }}
         />
+      );
+    }
+    
+    return (
+      <View style={{ backgroundColor: 'white', flex: 1 }}>
+        {banner}
         <View style={{ padding: 10, marginTop: -240 }}>
           <AssosScreenHeader
             assos={item}
@@ -107,7 +121,6 @@ const assoQuery = gql`
       banner
       tags {
         name
-        icon
       }
       desc
     }

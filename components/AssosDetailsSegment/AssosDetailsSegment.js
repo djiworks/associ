@@ -4,7 +4,11 @@ import { ScrollView } from 'react-native';
 
 class AssosDetailsSegment extends Component {
   render() {
-    const { description, tags } = this.props.Association;
+    const { desc, tags } = this.props.assos;
+    let strTags = tags.map((tag) => {
+      return `#${tag.name}`;
+    });
+    strTags = strTags.join(', ');
     return (
       <ScrollView>
         <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Thèmes :</Text>
@@ -16,10 +20,10 @@ class AssosDetailsSegment extends Component {
             marginBottom: 10,
           }}
         >
-          {tags}
+          {strTags}
         </Text>
         <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Description :</Text>
-        <Text>{description}</Text>
+        <Text>{desc}</Text>
       </ScrollView>
     );
   }
