@@ -5,18 +5,23 @@ import { Icon } from 'react-native-elements';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
+import { onError } from 'apollo-link-error';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 import Explorer from './screens/Explore';
 import Favorites from './screens/Favorites';
 import Notifs from './screens/Notifs';
 import Parameters from './screens/Parameters';
-import { GRAPHCOOL_API } from './config/settings';
+import { GRAPHQL_API } from './config/settings';
+
+const httpLink = new HttpLink({ uri: GRAPHQL_API });
+
+const logoutLink = onError(({ networkError, graphQLErrors }) => {
+  console.log(networkError, '......==..', graphQLErrors);
+});
 
 const client = new ApolloClient({
-  link: new HttpLink({
-    uri: GRAPHCOOL_API,
-  }),
+  link: logoutLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -29,7 +34,7 @@ const MainNavigator = TabNavigator(
   },
   {
     navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused, tintColor }) => {
+      tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
         let icon = '';
         switch (routeName) {

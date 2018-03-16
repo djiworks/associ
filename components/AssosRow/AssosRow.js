@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ListItem } from 'react-native-elements';
-import { View, Text, StyleSheet } from 'react-native';
+import { ListItem, Rating, Avatar, Text } from 'react-native-elements';
+import { View, StyleSheet } from 'react-native';
 
 class AssosRow extends Component {
-  renderSubtitle() {
+  renderSubtitle(tags, reviews) {
     return (
       <View style={{ paddingLeft: 10 }}>
         <View style={{paddingTop: 5, flexDirection: 'row', alignItems: 'center'}} >
@@ -12,30 +12,32 @@ class AssosRow extends Component {
                 readonly
                 startingValue={5}
               />
-              <Text style={{marginLeft: 5, fontSize: 10, color: 'gray'}}>({10} reviews)</Text>
+              <Text style={{marginLeft: 5, fontSize: 10, color: 'gray'}}>({reviews} reviews)</Text>
          </View>
         <View style={{ paddingTop: 5, flexDirection: 'row' }}>
-          <Text style={styles.tagContainer}>#ok</Text>
+          {
+            tags.map((tag) => (
+              <Text key={tag.name} style={styles.tagContainer}>#{tag.name}</Text>
+            ))
+          }
         </View>
       </View>
     );
   }
   render() {
-    const { name, tags, id } = this.props.assos;
+    const { name, tags, avatar, _ratingsMeta } = this.props.assos;
     return (
       <ListItem
-        onPress={() => {
-          this.props.navigation.navigate('AssosDetail', { id });
-        }}
         title={name}
         titleStyle={{ fontWeight: 'bold' }}
-        subtitle={this.renderSubtitle()}
+        subtitle={this.renderSubtitle(tags, _ratingsMeta.count)}
         avatar={
           <Avatar
             large
-            source={{uri: this.props.assos.avatar}}
+            source={{uri: avatar}}
           />
         }
+        onPress={this.props.onPress}
       />
     );
   }

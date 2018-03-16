@@ -33,27 +33,29 @@ class AssosDetail extends React.Component {
   }
 
   render() {
+    const { params } = this.props.navigation.state;
+    const item = params ? params.assos : null;
     const buttons = ['Détails', 'Contacts', 'Historique'];
+
     const { Association, loading } = this.props;
-    if (loading) return null;
     const { selectedIndex } = this.state;
     let content;
     switch (selectedIndex) {
       case 0:
-        content = <AssosDetailsSegment {...this.props} />;
+        content = <AssosDetailsSegment assos= {Association}/>;
         break;
       case 1:
-        content = <AssosContactsSegment {...this.props} />;
+        content = <AssosContactsSegment />;
         break;
       case 2:
-        content = <AssosHistorySegment {...this.props} />;
+        content = <AssosHistorySegment />;
         break;
     }
     // let content = <Text>taaaa</Text>;
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         <Image
-          source={{ uri: 'http://via.placeholder.com/400x250' }}
+          source={{ uri: Association.banner }}
           style={{ width: 400, height: 250 }}
         />
         <View style={{ padding: 10, marginTop: -240 }}>
@@ -65,13 +67,13 @@ class AssosDetail extends React.Component {
         <View style={{ marginTop: 150, padding: 10, flexDirection: 'row' }}>
           <View style={{ flex: 1 }}>
             <Text h4 style={{ color: 'goldenrod' }}>
-              {Association.name}
+              {item.name}
             </Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Rating
                 imageSize={22}
                 readonly
-                startingValue={item.rating}
+                startingValue={5}
               />
             </View>
           </View>
@@ -102,8 +104,12 @@ const assoQuery = gql`
     Association(id: $id) {
       id
       name
-      tags
-      description
+      banner
+      tags {
+        name
+        icon
+      }
+      desc
     }
   }
 `;
@@ -112,7 +118,7 @@ export default graphql(assoQuery, {
   props: ({ data }) => ({ ...data }),
   options: ({ navigation }) => ({
     variables: {
-      id: navigation.state.params.id,
+      id: navigation.state.params.assos.id,
     },
   }),
 })(AssosDetail);

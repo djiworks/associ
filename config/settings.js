@@ -1,3 +1,3 @@
 export const MAIL = 'djothi974@gmail.com';
 export const APP_NAME = 'Doney';
-export const API_URL = 'http://192.168.0.18:3000';
+export const GRAPHQL_API = 'https://api.graph.cool/simple/v1/cjes78ez16n7d0178fwacg90w';

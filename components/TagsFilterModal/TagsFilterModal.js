@@ -1,15 +1,14 @@
 import React from 'react';
 import { Button, List, ListItem } from 'react-native-elements';
-import { View, Modal, Button as Btn } from 'react-native';
+import { View, Modal, Button as Btn, ActivityIndicator } from 'react-native';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-import { API_URL } from '../../config/settings';
-
-export default class TagsFilterModal extends React.Component {
+class TagsFilterModal extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [],
       checked: {},
       selectAll: false,
       selectTitle: 'Tout selectionner',
@@ -17,23 +16,6 @@ export default class TagsFilterModal extends React.Component {
 
     this.handlePressTag = this.handlePressTag.bind(this);
     this.handleSelectAll = this.handleSelectAll.bind(this);
-  }
-
-  makeRemoteRequest() {
-    return fetch(`${API_URL}/tags`)
-      .then((response) => response.json())
-      .then((responseJson) => {
-        this.setState({
-          data: responseJson,
-        });
-      })
-      .catch((error) =>{
-        console.error(error);
-      });
-  }
-
-  componentDidMount() {
-    this.makeRemoteRequest();
   }
 
   handlePressTag(name) {
@@ -44,7 +26,7 @@ export default class TagsFilterModal extends React.Component {
 
   handleSelectAll() {
     const checked = {};
-    this.state.data.map((item) => {
+    this.props.allTags.map((item) => {
       this.state.selectAll ? (checked[item.name] = 'green') : (delete checked[item.name]);
     });
     this.setState({
@@ -55,12 +37,16 @@ export default class TagsFilterModal extends React.Component {
   }
 
   render() {
-    return (
-      <Modal
-        visible={this.props.modalVisible}
-        animationType="fade"
-        onRequestClose={this.props.onClose}
-      >
+    const { allTags, loading } = this.props;
+    let content;
+    if (loading) {
+      content = (
+        <View style={{ flex: 1, paddingTop: 15, alignItems: 'center' }}>
+          <ActivityIndicator animating size="large" />
+        </View>
+      );
+    } else {
+      content = (
         <View style={{flex:1, padding: 25}}>
           <Btn
             title={this.state.selectTitle}
@@ -68,9 +54,9 @@ export default class TagsFilterModal extends React.Component {
           />
           <List containerStyle={{flex: 1}}>
             {
-              this.state.data.map((item) => (
+              allTags.map((item) => (
                 <ListItem
-                  key={item => item.name}
+                  key={item => item.id}
                   title={item.name}
                   leftIcon={{name: item.icon, type:'font-awesome', color: 'goldenrod'}}
                   rightIcon={{name: 'check', type:'font-awesome', size:15, color: this.state.checked[item.name] }}
@@ -85,7 +71,30 @@ export default class TagsFilterModal extends React.Component {
             buttonStyle={{backgroundColor: "goldenrod"}}
           />
         </View>
+      );
+    }
+    return (
+      <Modal
+        visible={this.props.modalVisible}
+        animationType="fade"
+        onRequestClose={this.props.onClose}
+      >
+        { content } 
       </Modal>
     );
   }
 }
+
+const tagsQuery = gql`
+  {
+    allTags {
+      id
+      name
+      icon
+    }
+  }
+`;
+
+export default graphql(tagsQuery, {
+  props: ({ data }) => ({ ...data }),
+})(TagsFilterModal);

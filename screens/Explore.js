@@ -1,6 +1,6 @@
-import _ from 'lodash';
 import React from 'react';
 import { FlatList, View, ActivityIndicator } from 'react-native';
+import { Text } from 'react-native-elements';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -19,14 +19,7 @@ class ExploreScreen extends React.Component {
     super(props);
 
     this.state = {
-      isLoading: false,
-      isRefreshing: false,
       modalVisible: false,
-      limit: 10,
-      start: 0,
-      data: [],
-      filter: [],
-      search: '',
     };
 
     this.renderFooter = this.renderFooter.bind(this);
@@ -34,15 +27,9 @@ class ExploreScreen extends React.Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.renderItem = this.renderItem.bind(this);
-    this.handleRefresh = this.handleRefresh.bind(this);
-    this.handleLoadMore = _.throttle(this.handleLoadMore, 5000).bind(this);
     this.handleFilter = this.handleFilter.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
-
-  handleRefresh() {}
-
-  handleLoadMore() {}
 
   handleFilter(checked) {
     this.setState({ filter: Object.keys(checked) });
@@ -70,7 +57,7 @@ class ExploreScreen extends React.Component {
   }
 
   renderFooter() {
-    if (!this.state.isLoading) return null;
+    if (!this.props.loading) return null;
 
     return (
       <View style={{ flex: 1, paddingTop: 15, alignItems: 'center' }}>
@@ -78,24 +65,32 @@ class ExploreScreen extends React.Component {
       </View>
     );
   }
-  renderItem = ({ item }) => {
-    return <AssosRow assos={item} {...this.props} />;
+
+  renderEmpty() {
+    return <Text>pas de résultats...</Text>
+  }
+
+  renderItem({ item }) {
+    return (
+      <AssosRow 
+        assos={item}
+        onPress={() => this.props.navigation.navigate('AssosDetail', { assos: item })}
+      />
+    );
   };
 
   render() {
     const { allAssociations, loading } = this.props;
-    if (loading) return null;
     return (
       <View style={{ flex: 1, marginTop: 24, backgroundColor: 'white' }}>
         <FlatList
           data={allAssociations}
           keyExtractor={item => item.id}
           ListHeaderComponent={this.renderHeader}
+          ListFooterComponent={this.renderFooter}
+          ListEmptyComponent={this.renderEmpty}
           renderItem={this.renderItem}
-          refreshing={this.state.isLoading}
-          onRefresh={this.handleRefresh}
-          onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={0}
+          refreshing={loading}
         />
         <TagsFilterModal
           modalVisible={this.state.modalVisible}
@@ -112,7 +107,14 @@ const associationsQuery = gql`
     allAssociations {
       id
       name
-      tags
+      avatar
+      tags {
+        name
+        icon
+      }
+      _ratingsMeta {
+        count
+      }
     }
   }
 `;
