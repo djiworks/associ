@@ -1,6 +1,8 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
-import { View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage, Share, Platform } from 'react-native';
+
+import { APP_NAME, APP_URL } from '../../config/settings';
 
 export default class AssosScreenHeader extends React.Component {
   constructor (props) {
@@ -15,6 +17,36 @@ export default class AssosScreenHeader extends React.Component {
 
   componentDidMount() {
     this.getFavorite();
+  }
+
+  handleClick() {
+    const title = `Retrouvez ${this.props.assos.name} sur ${APP_NAME}`;
+    const msg = `Découvrez, votez, soyez alerté et plus... sur ${this.props.assos.name} !!!`;
+    const url = APP_URL;
+    Share.share({
+      ...Platform.select({
+        ios: {
+          message: msg,
+          url: url,
+        },
+        android: {
+          message: `${msg} : \n ${url}`,
+        }
+      }),
+      title,
+    }, {
+      ...Platform.select({
+        ios: {
+          // iOS only:
+          subject: title,
+          tintColor: 'goldenrod',
+        },
+        android: {
+          // Android only:
+          dialogTitle: `Share : ${this.props.assos.name}`,
+        }
+      })
+    });
   }
 
   getFavorite = async () => {
@@ -65,6 +97,7 @@ export default class AssosScreenHeader extends React.Component {
           color="goldenrod"
           underlayColor="transparent"
           raised
+          onPress={() => { this.handleClick(); }}
         />
         <Icon
           type="font-awesome"

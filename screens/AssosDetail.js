@@ -62,22 +62,24 @@ class AssosDetail extends React.Component {
           break;
       }
       banner = (
-        <Image
-          source={{ uri: Association.banner }}
-          style={{ width: 400, height: 250 }}
-        />
+        <View>
+          <Image
+            source={{ uri: Association.banner }}
+            style={{ width: 400, height: 250 }}
+          />
+          <View style={{ padding: 10, marginTop: -240 }}>
+            <AssosScreenHeader
+              assos={Association}
+              onBackPress={() => this.props.navigation.goBack()}
+            />
+          </View>
+        </View>
       );
     }
     
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         {banner}
-        <View style={{ padding: 10, marginTop: -240 }}>
-          <AssosScreenHeader
-            assos={item}
-            onBackPress={() => this.props.navigation.goBack()}
-          />
-        </View>
         <View style={{ marginTop: 150, padding: 10, flexDirection: 'row' }}>
           <View style={{ flex: 1 }}>
             <Text h4 style={{ color: 'goldenrod' }}>

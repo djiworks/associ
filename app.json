@@ -1,5 +1,10 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+    "name": "Doney",
+    "slug": "doney",
+    "sdkVersion": "25.0.0",
+    "privacy": "unlisted",
+    "version": "0.0.1",
+    "orientation": "portrait"
   }
 }
