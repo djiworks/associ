@@ -7,3 +7,6 @@
 - [ ] Mutation vote
 - [ ] Mutation share
 - [ ] Follow feature
+- [x] Logo 1024x1024
+- [ ] Splash 1242x2436
+

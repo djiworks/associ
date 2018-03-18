@@ -2,9 +2,11 @@
   "expo": {
     "name": "Doney",
     "slug": "doney",
+    "description": "Doney est une application de promotion des associations",
     "sdkVersion": "25.0.0",
     "privacy": "unlisted",
     "version": "0.0.1",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "icon": "./assets/logo.png"
   }
 }
