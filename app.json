@@ -7,6 +7,9 @@
     "privacy": "unlisted",
     "version": "0.0.1",
     "orientation": "portrait",
-    "icon": "./assets/logo.png"
+    "icon": "./assets/logo.png",
+    "splash": {
+        "image": "./assets/splash.png"
+    }
   }
 }
