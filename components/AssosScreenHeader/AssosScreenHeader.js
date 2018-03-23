@@ -1,5 +1,7 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
+import { Constants } from 'expo';
+
 import { View, AsyncStorage, Share, Platform } from 'react-native';
 
 import { APP_NAME, APP_URL } from '../../config/settings';
@@ -47,16 +49,6 @@ export default class AssosScreenHeader extends React.Component {
         }
       })
     });
-  }
-
-  getFavorite = async () => {
-    try {
-      const value = await AsyncStorage.getItem(`@favorites:${this.props.assos.id}`);
-      const isFavorites = value ? true : false;
-      this.setState({ isFavorites });
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   isFavorites() {

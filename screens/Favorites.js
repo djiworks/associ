@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, View, ActivityIndicator, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { Constants } from 'expo';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -33,7 +34,11 @@ class FavoritesScreen extends React.Component {
   }
 
   renderEmpty() {
-    return <Text>Vous n\'avez pas d\'associations favorites</Text>
+    return (
+      <View style={{ flex: 1, alignItems: 'center' }}>
+        <Text style={{fontSize: 20, color: 'gray'}}>Vous n'avez pas d'associations favorites</Text>
+      </View>
+    )
   }
 
   renderItem({ item }) {
@@ -46,7 +51,15 @@ class FavoritesScreen extends React.Component {
   }
 
   render() {
-    const { allAssociations, loading } = this.props;
+    const { allFavorites, loading } = this.props;
+
+    let allAssociations = [];
+
+    if (!loading) {
+      allAssociations = allFavorites.map((fav) => {
+        return fav.association
+      });
+    }    
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
@@ -62,20 +75,24 @@ class FavoritesScreen extends React.Component {
   }
 }
 
-const associationsQuery = gql`
-  {
-    allAssociations {
-      id
-      name
-      avatar
-      tags {
+const favQuery = gql`
+  query allFavorites($author: String!) {
+    allFavorites(filter: {
+      author: $author,
+    }) {
+      association {
+        id
         name
-      }
-      _favoritesMeta {
-        count
-      }
-      _followsMeta {
-        count
+        avatar
+        tags {
+          name
+        }
+        _favoritesMeta {
+          count
+        }
+        _followsMeta {
+          count
+        }
       }
     }
   }
@@ -83,8 +100,13 @@ const associationsQuery = gql`
 
 export default StackNavigator({
   FavoritesList: {
-    screen: graphql(associationsQuery, {
+    screen: graphql(favQuery, {
       props: ({ data }) => ({ ...data }),
+      options: () => ({
+        variables: {
+          author: Constants.deviceId,
+        },
+      }),
     })(FavoritesScreen),
   },
   AssosDetail: {
