@@ -114,7 +114,10 @@ const associationsQuery = gql`
       tags {
         name
       }
-      _ratingsMeta {
+      _favoritesMeta {
+        count
+      }
+      _followsMeta {
         count
       }
     }

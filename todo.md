@@ -4,9 +4,9 @@
 - [ ] Filter by tag
 - [ ] Search
 - [ ] Mutation views
-- [ ] Mutation vote
+- [ ] Remove vote
 - [ ] Mutation share
 - [ ] Follow feature
 - [x] Logo 1024x1024
-- [ ] Splash 1242x2436
+- [x] Splash 1242x2436
 

@@ -1,6 +1,8 @@
 import React from 'react';
-import { FlatList, View, ActivityIndicator, AsyncStorage } from 'react-native';
+import { FlatList, View, ActivityIndicator, Text } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 import AssosRow from '../components/AssosRow/AssosRow';
 
@@ -16,66 +18,74 @@ class FavoritesScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loading: true,
-      data: [],
-    };
-
     this.renderFooter = this.renderFooter.bind(this);
     this.renderItem = this.renderItem.bind(this);
   }
 
-  componentDidMount() {
-    this.readFavorites()
-  }
-
-  readFavorites = async () => {
-    this.setState({ loading: true });
-    try {
-      const favKeys = await AsyncStorage.getAllKeys();
-      console.log('>>>>>>', favKeys);
-      /*
-      >>>>>> Array [
-      23:59:24:   "@favorites:2",
-      23:59:24:   "@favorites:3",
-      23:59:24: ]
-      */
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
   renderFooter() {
-    if (!this.state.loading) return null;
+    if (!this.props.loading) return null;
 
-    return <ActivityIndicator animating size="large" />;
+    return (
+      <View style={{ flex: 1, paddingTop: 15, alignItems: 'center' }}>
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
   }
 
-  renderItem({ item, index }) {
+  renderEmpty() {
+    return <Text>Vous n\'avez pas d\'associations favorites</Text>
+  }
+
+  renderItem({ item }) {
     return (
-      <AssosRow
+      <AssosRow 
         assos={item}
-        onPress={() => this.props.navigation.navigate('AssosDetail', {name: item.name})}
+        onPress={() => this.props.navigation.navigate('AssosDetail', { assos: item })}
       />
     );
   }
 
   render() {
+    const { allAssociations, loading } = this.props;
     return (
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <FlatList
-          data={this.state.data}
+          data={allAssociations}
+          keyExtractor={item => item.id}
           ListFooterComponent={this.renderFooter}
+          ListEmptyComponent={this.renderEmpty}
           renderItem={this.renderItem}
+          refreshing={loading}
         />
       </View>
     );
   }
 }
 
+const associationsQuery = gql`
+  {
+    allAssociations {
+      id
+      name
+      avatar
+      tags {
+        name
+      }
+      _favoritesMeta {
+        count
+      }
+      _followsMeta {
+        count
+      }
+    }
+  }
+`;
+
 export default StackNavigator({
   FavoritesList: {
-    screen: FavoritesScreen,
+    screen: graphql(associationsQuery, {
+      props: ({ data }) => ({ ...data }),
+    })(FavoritesScreen),
   },
   AssosDetail: {
     screen: AssosDetail,

@@ -21,21 +21,25 @@ class ParametersScreen extends React.Component {
     return (
       <List>
         <ListItem
+          key='contact'
           title="Nous contacter"
           leftIcon={{name: 'question-circle', type: 'font-awesome'}}
           onPress={() => Linking.openURL(`mailto:${MAIL}?subject=[${APP_NAME}] Contact`)}
         />
         <ListItem
+          key='warn'
           title="Signaler un problème"
           leftIcon={{name: 'warning', type: 'font-awesome'}}
           onPress={() => Linking.openURL(`mailto:${MAIL}?subject=[${APP_NAME}] Signalement d'un problème`)}
         />
         <ListItem
+          key='cgu'
           title="Conditions d'utilisation"
           leftIcon={{name: 'legal', type: 'font-awesome'}}
           onPress={() => this.props.navigation.navigate('Legal')}
         />
         <ListItem
+          key='about'
           title="A propos"
           leftIcon={{name: 'info', type: 'font-awesome'}}
           onPress={() => Alert.alert('A propos', 'v0.1\n Copyright Doney (Mars 2018)')}

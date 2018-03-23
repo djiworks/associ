@@ -4,7 +4,7 @@ import { View, FlatList } from 'react-native';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-class AssosHistorySegment extends React.Component {
+class AssosAlertSegment extends React.Component {
   renderEmpty() {
     return <Text>Pas d'alerte...</Text>
   }
@@ -59,4 +59,4 @@ export default graphql(notifQuery, {
       id: props.assos.id,
     },
   }),
-})(AssosHistorySegment);
+})(AssosAlertSegment);

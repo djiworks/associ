@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Image, ActivityIndicator } from 'react-native';
 import {
   Text,
-  Rating,
   ButtonGroup,
   Button as Btn,
 } from 'react-native-elements';
@@ -12,7 +11,7 @@ import gql from 'graphql-tag';
 import AssosScreenHeader from '../components/AssosScreenHeader/AssosScreenHeader';
 import AssosDetailsSegment from '../components/AssosDetailsSegment/AssosDetailsSegment';
 import AssosContactsSegment from '../components/AssosContactsSegment/AssosContactsSegment';
-import AssosHistorySegment from '../components/AssosHistorySegment/AssosHistorySegment';
+import AssosAlertSegment from '../components/AssosAlertSegment/AssosAlertSegment';
 
 class AssosDetail extends React.Component {
   static navigationOptions = () => {
@@ -35,7 +34,7 @@ class AssosDetail extends React.Component {
   render() {
     const { params } = this.props.navigation.state;
     const item = params ? params.assos : null;
-    const buttons = ['Détails', 'Contacts', 'Historique'];
+    const buttons = ['Détails', 'Contacts', 'Alertes'];
 
     const { Association, loading } = this.props;
     const { selectedIndex } = this.state;
@@ -58,7 +57,7 @@ class AssosDetail extends React.Component {
           content = <AssosContactsSegment assos={Association} />;
           break;
         case 2:
-          content = <AssosHistorySegment assos={item} />;
+          content = <AssosAlertSegment assos={item} />;
           break;
       }
       banner = (
@@ -85,13 +84,6 @@ class AssosDetail extends React.Component {
             <Text h4 style={{ color: 'goldenrod' }}>
               {item.name}
             </Text>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Rating
-                imageSize={22}
-                readonly
-                startingValue={5}
-              />
-            </View>
           </View>
           <Btn
             title="M'alerter"
