@@ -16,7 +16,7 @@ class AssosAlertSegment extends React.Component {
         title={`${dateObj} : ${item.title}`}
         subtitle={item.msg}
         hideChevron
-        leftIcon={{name: item.icon}}
+        leftIcon={{name: item.icon, color: 'goldenrod'}}
       />
     );
   }

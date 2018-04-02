@@ -1,10 +1,8 @@
-- [ ] Use graphQL for favorites management
+- [-] Use graphQL for favorites management
 - [x] Share feature
-- [ ] Display Ratings average
 - [ ] Filter by tag
 - [ ] Search
 - [ ] Mutation views
-- [ ] Remove vote
 - [ ] Mutation share
 - [ ] Follow feature
 - [x] Logo 1024x1024

@@ -35,9 +35,9 @@ export default class LegalScreen extends React.Component {
           - La liste de l’ensemble des Associations inscrites sur la plateforme ;
           - Les informations textuelles et multimédias éditées par l'Association lors de son inscription ;
           - Les fonctionnalités de partage avec les réseaux sociaux ;
-          - La mise en favoris d'une Association par le biais d'une liste stockée directement sur l'appareil de l'Utilisateur
-          - Le vote d'un Utilisateur pour une Association
-          - La réception de notifications à l'initiative de l'Association
+          - La mise en favoris d'une Association ;
+          - Le vote d'un Utilisateur pour une Association ;
+          - La réception de notifications à l'initiative de l'Association ;
           Cette liste est non exhaustive et peut être modifiée à tout moment sans qu'une quelqueconque responsabilité ne puisse être engagée à ce titre par qui que ce soit.
         </Text>
         <Text h4>Propriété Intellectuelle</Text>
@@ -56,7 +56,8 @@ export default class LegalScreen extends React.Component {
         </Text>
         <Text h4>Données Personnelles</Text>
         <Text>L'Application ne collecte ni n'exploite aucune donnée personnelle liée à l'Utilisateur.
-          La liste des favoris collecte les informations des Associations favorites de l'Utilisateur localement sans identifier l'Utilisateur.
+          La liste des favoris collecte les informations des Associations favorites de l'Utilisateur
+          par le biais d'une suite de chiffre et de lettre généré par l'Application.
         </Text>
         <Text h4>Disponibilité de l'Application</Text>
         <Text>
@@ -77,7 +78,7 @@ export default class LegalScreen extends React.Component {
           Les CGU peuvent faire l'objet de modifications à tout moment sans avertissement préablable. L'Utilisateur est donc invité à les consulter régulièrement.
         </Text>
         <Text h4>Mentions légales</Text>
-        <Text></Text>
+        <Text>Cette Application est en phase test et n'est détenu par structure juridique.</Text>
       </ScrollView>
     );
   }

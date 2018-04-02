@@ -1,6 +1,8 @@
 import React from 'react';
 import { Icon } from 'react-native-elements';
 import { Constants } from 'expo';
+import gql from 'graphql-tag';
+import { Mutation } from 'react-apollo';
 
 import { View, AsyncStorage, Share, Platform } from 'react-native';
 
@@ -9,16 +11,13 @@ import { APP_NAME, APP_URL } from '../../config/settings';
 export default class AssosScreenHeader extends React.Component {
   constructor (props) {
     super(props);
+    const isFav = (this.props.assos.favorites.length > 0);
     this.state = {
-      isFavorites: false,
+      isFavorites: isFav,
     }
 
     this.isFavorites = this.isFavorites.bind(this);
     this.handleFavorites = this.handleFavorites.bind(this);
-  }
-
-  componentDidMount() {
-    this.getFavorite();
   }
 
   handleClick() {
@@ -55,15 +54,12 @@ export default class AssosScreenHeader extends React.Component {
     return this.state.isFavorites ? 'heart' : 'heart-o';
   }
 
-  handleFavorites = async () => {
+  handleFavorites() {
     const isFavorites = this.state.isFavorites;
     this.setState({ isFavorites: !isFavorites });
     try {
-      if (isFavorites) {
-        await AsyncStorage.removeItem(`@favorites:${this.props.assos.id}`);
-      } else {
-        await AsyncStorage.setItem(`@favorites:${this.props.assos.id}`, `${this.props.assos.id} as favorite`);
-      }
+      //TODO mutation fav
+      //Constants.deviceId
     } catch (error) {
       this.setState({ isFavorites: isFavorites });
     }

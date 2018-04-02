@@ -7,6 +7,7 @@ import {
 } from 'react-native-elements';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Constants } from 'expo';
 
 import AssosScreenHeader from '../components/AssosScreenHeader/AssosScreenHeader';
 import AssosDetailsSegment from '../components/AssosDetailsSegment/AssosDetailsSegment';
@@ -108,17 +109,22 @@ class AssosDetail extends React.Component {
 }
 
 const assoQuery = gql`
-  query Association($id: ID!) {
+  query Association($id: ID!, $author: String!) {
     Association(id: $id) {
       id
       name
       banner
       address
       phone
+      desc
       tags {
         name
       }
-      desc
+      favorites(filter: {
+        author: $author
+      }) {
+        id
+      }
     }
   }
 `;
@@ -128,6 +134,7 @@ export default graphql(assoQuery, {
   options: ({ navigation }) => ({
     variables: {
       id: navigation.state.params.assos.id,
+      author: Constants.deviceId,
     },
   }),
 })(AssosDetail);
